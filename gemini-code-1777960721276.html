@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Теперь поисковики будут знать, что основной адрес — твой домен -->
+    <link rel="canonical" href="https://keysh1ng.com" />
+    <title>KeySh1ng | Digital Presence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --discord: #5865F2; --telegram: #0088cc; --steam: #171a21;
+            --spotify: #1DB954; --twitch: #9146FF; --donate: #ff7300;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.1s ease;
+        }
+
+        .flash { background-color: #0c0c1d !important; }
+
+        canvas {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+
+        #snow { z-index: 1; }
+        #meteor { z-index: 2; }
+        #lightning { z-index: 3; filter: blur(0.5px) drop-shadow(0 0 15px #fff); }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-top: -30px;
+            width: 90%;
+        }
+
+        h1 {
+            font-family: 'Metal Mania', cursive;
+            font-size: clamp(40px, 9vw, 75px);
+            margin: 0;
+            line-height: 1.1;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #ffffff 20%, #888888 50%, #ffffff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));
+            animation: fadeInDown 1.2s ease-out;
+            letter-spacing: 4px;
+        }
+
+        .present {
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin: 5px 0 25px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .link-item {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 900;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(15px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .link-item.show { opacity: 1; transform: translateY(0); }
+        .link-item i { font-size: 18px; margin-right: 15px; width: 25px; text-align: center; }
+
+        .discord { background: var(--discord); box-shadow: 0 4px 12px rgba(88, 101, 242, 0.2); }
+        .telegram { background: var(--telegram); box-shadow: 0 4px 12px rgba(0, 136, 204, 0.2); }
+        .steam { background: var(--steam); border: 1px solid rgba(255,255,255,0.15); }
+        .spotify { background: var(--spotify); color: #000; box-shadow: 0 4px 12px rgba(29, 185, 84, 0.2); }
+        .twitch { background: var(--twitch); box-shadow: 0 4px 12px rgba(145, 70, 255, 0.2); }
+        .donate { background: var(--donate); box-shadow: 0 4px 12px rgba(255, 115, 0, 0.2); }
+
+        .link-item:hover {
+            transform: scale(1.04) translateX(5px);
+            filter: brightness(1.15);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 8px;
+            color: #333;
+            letter-spacing: 4px;
+            z-index: 10;
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="snow"></canvas>
+    <canvas id="meteor"></canvas>
+    <canvas id="lightning"></canvas>
+
+    <div class="container">
+        <h1>KeySh1ng</h1>
+        <p class="present">KeySh1ng present</p>
+        <div class="links">
+            <a href="https://discord.gg/EEqvyufWKr" target="_blank" class="link-item discord"><i class="fa-brands fa-discord"></i> DISCORD</a>
+            <a href="https://t.me/kiZXCching" target="_blank" class="link-item telegram"><i class="fa-brands fa-telegram"></i> TELEGRAM</a>
+            <a href="https://steamcommunity.com/id/keysh1ng/" target="_blank" class="link-item steam"><i class="fa-brands fa-steam"></i> STEAM PROFILE</a>
+            <a href="https://open.spotify.com/user/31c53xquwoxt5efjr3sm7xu6znhe" target="_blank" class="link-item spotify"><i class="fa-brands fa-spotify"></i> SPOTIFY</a>
+            <a href="https://www.twitch.tv/keysh1ng" target="_blank" class="link-item twitch"><i class="fa-brands fa-twitch"></i> TWITCH</a>
+            <a href="https://www.donationalerts.com/r/keysh1ng" target="_blank" class="link-item donate"><i class="fa-solid fa-circle-dollar-to-slot"></i> DONATE</a>
+        </div>
+    </div>
+
+    <div class="footer">© 2026 KEYSH1NG • ALL RIGHTS RESERVED</div>
+
+    <script>
+        const sCanvas = document.getElementById('snow');
+        const mCanvas = document.getElementById('meteor');
+        const lCanvas = document.getElementById('lightning');
+        const [sCtx, mCtx, lCtx] = [sCanvas, mCanvas, lCanvas].map(c => c.getContext('2d'));
+        
+        let w, h, snowList = [], meteor = null, isLightning = false;
+
+        function resize() {
+            w = window.innerWidth; h = window.innerHeight;
+            [sCanvas, mCanvas, lCanvas].forEach(c => { c.width = w; c.height = h; });
+        }
+
+        function init() {
+            snowList = Array.from({length: 60}, () => ({
+                x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.5+0.5, v: Math.random()*0.5+0.3
+            }));
+        }
+
+        function draw() {
+            sCtx.clearRect(0, 0, w, h);
+            sCtx.fillStyle = "rgba(255, 255, 255, 0.3)";
+            sCtx.beginPath();
+            snowList.forEach(p => {
+                sCtx.moveTo(p.x, p.y);
+                sCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                p.y += p.v; if(p.y > h) p.y = -10;
+            });
+            sCtx.fill();
+
+            if (meteor) {
+                mCtx.clearRect(0, 0, w, h);
+                mCtx.beginPath();
+                let grad = mCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx*15, meteor.y - meteor.vy*15);
+                grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+                grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+                mCtx.strokeStyle = grad;
+                mCtx.lineWidth = 2;
+                mCtx.moveTo(meteor.x, meteor.y);
+                mCtx.lineTo(meteor.x - meteor.vx*15, meteor.y - meteor.vy*15);
+                mCtx.stroke();
+                
+                meteor.x += meteor.vx;
+                meteor.y += meteor.vy;
+                if (meteor.x > w + 200 || meteor.y > h + 200) meteor = null;
+            } else {
+                mCtx.clearRect(0, 0, w, h);
+            }
+            requestAnimationFrame(draw);
+        }
+
+        function triggerMeteor() {
+            if (!isLightning && !meteor) {
+                meteor = {
+                    x: Math.random() * w * 0.5, y: -50,
+                    vx: Math.random() * 5 + 10, vy: Math.random() * 5 + 8
+                };
+            }
+            setTimeout(triggerMeteor, 5000 + Math.random() * 2000);
+        }
+
+        function strike() {
+            if (meteor) {
+                setTimeout(strike, 1000);
+                return;
+            }
+            isLightning = true;
+            lCtx.clearRect(0, 0, w, h);
+            let x = Math.random() * w;
+            lCtx.strokeStyle = "rgba(255, 255, 255, 0.9)";
+            lCtx.lineWidth = 1.5;
+            lCtx.beginPath();
+            lCtx.moveTo(x, 0);
+            let cx = x, cy = 0;
+            while(cy < h) { cx += (Math.random()-0.5)*80; cy += Math.random()*60; lCtx.lineTo(cx, cy); }
+            lCtx.stroke();
+            document.body.classList.add('flash');
+            setTimeout(() => {
+                lCtx.clearRect(0, 0, w, h);
+                document.body.classList.remove('flash');
+                isLightning = false;
+            }, 80);
+            setTimeout(strike, 7000 + Math.random() * 5000);
+        }
+
+        window.addEventListener('resize', () => { resize(); init(); });
+        resize(); init(); draw();
+        setTimeout(strike, 3000);
+        setTimeout(triggerMeteor, 1000);
+        document.querySelectorAll('.link-item').forEach((it, i) => {
+            setTimeout(() => it.classList.add('show'), 600 + (i * 100));
+        });
+    </script>
+</body>
+</html>
